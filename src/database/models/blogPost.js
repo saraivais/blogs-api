@@ -25,3 +25,5 @@ const BlogPost = (sequelize, DataTypes) => {
 
   return BlogPost;
 };
+
+module.exports = BlogPost;
