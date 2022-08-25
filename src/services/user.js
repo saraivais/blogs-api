@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
 
 const userService = {
@@ -6,6 +7,12 @@ const userService = {
     return (chosenUser !== null);
   },
 
+  verifyUserLoggedIn: async (token, userId) => {
+    const decodedPayload = jwt.decode(token);
+    if (decodedPayload.id !== userId) {
+      throw new Error('401|Unauthorized user');
+    }
+  },
 };
 
 module.exports = userService;
