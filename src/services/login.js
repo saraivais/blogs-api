@@ -7,13 +7,13 @@ require('dotenv').config();
 const loginService = {
   logIn: async ({ email, password }) => {
     await loginService.validateLoginFields({ email, password });
-    await loginService.emailPasswordMatch(email, password);
+    const id = await loginService.emailPasswordMatch(email, password);
 
     const jwtConfig = {
       algorithm: 'HS256',
     };
 
-    const token = jwt.sign({ data: email }, process.env.JWT_SECRET, jwtConfig);
+    const token = jwt.sign({ data: { email, id } }, process.env.JWT_SECRET, jwtConfig);
     return token;
   },
 
