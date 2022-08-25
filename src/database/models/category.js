@@ -9,6 +9,8 @@ const Category = (sequelize, DataTypes) => {
   }, {
     timestamps: false,
   });
+
+  return Category;
 };
 
 module.exports = Category;
