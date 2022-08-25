@@ -19,8 +19,15 @@ const loginService = {
     }),
   })),
 
-  userExists: async () => {},
-  userPasswordMatch: async () => {},
+  emailPasswordMatch: async (loginEmail, loginPassword) => {
+    const chosenEmailAndPasswords = await User.findOne(
+      { where: { email: loginEmail, password: loginPassword } },
+    );
+
+    if (chosenEmailAndPasswords === null) {
+      throw new Error('400|Invalid fields');
+    }
+  },
 };
 
 module.exports = loginService;
