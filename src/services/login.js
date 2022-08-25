@@ -36,6 +36,8 @@ const loginService = {
     if (chosenEmailAndPasswords === null) {
       throw new Error('400|Invalid fields');
     }
+
+    return chosenEmailAndPasswords.dataValues.id;
   },
 };
 
