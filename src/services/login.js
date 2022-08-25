@@ -1,11 +1,20 @@
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const runSchema = require('./joiValidator');
-
-// const { User } = require('../database/models');
+const { User } = require('../database/models');
+require('dotenv').config();
 
 const loginService = {
-  logIn: async () => {
+  logIn: async ({ email, password }) => {
+    await loginService.validateLoginFields({ email, password });
+    await loginService.emailPasswordMatch(email, password);
 
+    const jwtConfig = {
+      algorithm: 'HS256',
+    };
+
+    const token = jwt.sign({ data: email }, process.env.JWT_SECRET, jwtConfig);
+    return token;
   },
 
   validateLoginFields: runSchema(Joi.object({
