@@ -5,7 +5,7 @@ const categoryService = require('./category');
 
 const blogPostService = {
 
-  validateBlogPostFiekds: runSchema(Joi.object({
+  validateBlogPostFields: runSchema(Joi.object({
     title: Joi.string().required().messages({
       'string.required': '400|Some required fields are missing',
     }),
