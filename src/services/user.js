@@ -15,7 +15,7 @@ const userService = {
     return (chosenUser !== null);
   },
 
-  verifyUserLoggedIn: async (token, userId) => {
+  verifyUserLoggedIn: (token, userId) => {
     const userFromToken = userService.getPayload(token);
     if (userFromToken.id !== userId) {
       throw new Error('401|Unauthorized user');
