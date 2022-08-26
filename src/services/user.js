@@ -13,6 +13,11 @@ const userService = {
       throw new Error('401|Unauthorized user');
     }
   },
+
+  getAll: async () => {
+    const allUsers = await User.findAll({ attributes: { exclude: ['password'] } });
+    return allUsers;
+  },
 };
 
 module.exports = userService;
