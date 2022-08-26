@@ -33,7 +33,7 @@ const userService = {
       // console.log('user não existe, linha 33 userservice');
       throw new Error('404|User does not exist');
     }
-    const chosenUser = await User.findByPk(id);
+    const chosenUser = await User.findByPk(id, { attributes: { exclude: ['password'] } });
     return chosenUser;
   },
 
