@@ -7,6 +7,7 @@ const blogPostRoute = express.Router();
 
 blogPostRoute.use(jwtValidation);
 blogPostRoute.get('/search', rescue(blogPostController.getAllThroughSearch));
+blogPostRoute.put('/:id', rescue(blogPostController.update));
 blogPostRoute.get('/:id', rescue(blogPostController.getById));
 blogPostRoute.get('/', rescue(blogPostController.getAll));
 blogPostRoute.post('/', rescue(blogPostController.create));
