@@ -5,4 +5,6 @@ const jwtValidation = require('../middlewares/auth');
 
 const blogPostRoute = express.Router();
 
+blogPostRoute.post('/', jwtValidation, rescue(blogPostController.create));
+
 module.exports = blogPostRoute;
