@@ -11,6 +11,12 @@ const userController = {
     const chosenUser = await userService.getById(id);
     return response.status(200).json(chosenUser);
   },
+
+  create: async (request, response, _next) => {
+    const token = await userService.create(request.body);
+    return response.status(201).json({ token });
+  },
+
 };
 
 module.exports = userController;
