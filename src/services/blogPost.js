@@ -6,6 +6,8 @@ const categoryService = require('./category');
 const userService = require('./user');
 const postCategoryService = require('./postCategory');
 
+const missingFieldsError = '400|Some required fields are missing';
+
 const blogPostService = {
   getAll: async () => {
     const allPosts = await BlogPost.findAll({
