@@ -16,7 +16,7 @@ const blogPostController = {
 
   getById: async (request, response, _next) => {
     const { id } = request.params;
-    const chosenPost = await blogPostService.getByid(id);
+    const chosenPost = await blogPostService.getById(id);
 
     return response.status(200).json(chosenPost);
   },
