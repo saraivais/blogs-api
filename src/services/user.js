@@ -30,7 +30,6 @@ const userService = {
   getById: async (id) => {
     const userExists = await userService.exists(id);
     if (!userExists) {
-      // console.log('user não existe, linha 33 userservice');
       throw new Error('404|User does not exist');
     }
     const chosenUser = await User.findByPk(id, { attributes: { exclude: ['password'] } });
@@ -54,13 +53,14 @@ const userService = {
   })),
 
   create: async ({ displayName, email, password, image }) => {
+    await userService.validatePostFields(
+      { displayName, email, password, image },
+    );
+    
     const alreadyExists = await userService.emailRegistered(email);
     if (alreadyExists) {
       throw new Error('409|User already registered');
     }
-    await userService.validatePostFields(
-      { displayName, email, password, image },
-    );
 
     const createdUser = await User.create({ displayName, email, password, image });
     const token = userService.generateNewUserToken(email, createdUser.id);
