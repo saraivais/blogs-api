@@ -38,7 +38,7 @@ const blogPostService = {
     return allPostsFiltered || [];
   },
 
-  getByid: async (id) => {
+  getById: async (id) => {
     const chosenPost = await BlogPost.findByPk(id, {
       include: [{
           model: User,
