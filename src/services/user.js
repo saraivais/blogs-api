@@ -50,6 +50,14 @@ const userService = {
     image: Joi.string(),
   })),
 
+  generateNewUserToken: (email, id) => {
+    const jwtConfig = {
+      algorithm: 'HS256',
+    };
+
+    const token = jwt.sign({ data: { email, id }}, process.env.JWT_SECRET, jwtConfig);
+    return token;
+  },
 };
 
 module.exports = userService;
