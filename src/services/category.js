@@ -22,6 +22,10 @@ const categoryService = {
     return createdCategory.dataValues;
   },
 
+  exists: async (id) => {
+    const chosenCategory = await Category.findByPk(id);
+    return (chosenCategory !== null);
+  },
 };
 
 module.exports = categoryService;
