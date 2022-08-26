@@ -1,11 +1,9 @@
 const { PostCategory } = require('../database/models');
 
 const postCategoryService = {
-  
-  createPostsRelations: async (id, categoryIds) => {
-    const allRelations = await Promise.all(categoryIds
-      .map((categId) => postCategoryService.insertOneRelation(id, categId)));
-    console.log('allrelationscreated', allRelations);
+  createRelationsInBulk: async (id, categoryIds) => {
+    await PostCategory.bulkCreate(categoryIds
+      .map((categoryId) => ({ postId: id, categoryId })), { validate: true });
   },
 
   insertOneRelation: async (id, categoryId) => {
