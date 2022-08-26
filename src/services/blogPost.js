@@ -11,7 +11,7 @@ const blogPostService = {
       include: [{
         model: User,
         as: 'user',
-        through: { attributes: [] },
+        attributes: { exclude: ['password'] },
        }, {
         model: Category,
         as: 'categories',
