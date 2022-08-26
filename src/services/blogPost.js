@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { Op } = require('sequelize');
 const runSchema = require('./joiValidator');
 const { BlogPost, User, Category } = require('../database/models');
 const categoryService = require('./category');
