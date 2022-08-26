@@ -21,6 +21,23 @@ const blogPostService = {
     return allPosts;
   },
 
+  getAllThroughSearch: async (query) => {
+    if (!query) {
+      const allPosts = await blogPostService.getAll();
+      return allPosts;
+    }
+    const allPostsFiltered = await BlogPost.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${query}%` } }, { content: { [Op.like]: `%${query}%` } }] },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return allPostsFiltered || [];
+  },
+
   getByid: async (id) => {
     const chosenPost = await BlogPost.findByPk(id, {
       include: [{
