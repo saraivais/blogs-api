@@ -5,6 +5,11 @@ const categoryController = {
     const allCategories = await categoryService.getAll();
     return response.status(200).json(allCategories);
   },
+
+  create: async (request, response, _next) => {
+    const createdUser = await categoryService.create(request.body);
+    return response.status(201).json(createdUser);
+  },
 };
 
 module.exports = categoryController;
