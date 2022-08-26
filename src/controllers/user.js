@@ -18,11 +18,8 @@ const userController = {
   },
 
   delete: async (request, response, _next) => {
-    console.log('ENTREI NO DELETE CONTROLLER');
     const { authorization } = request.headers;
-    console.log('authorization', authorization);
-    const deletedUser = await userService.delete(authorization);
-    console.log('deletedUser', deletedUser);
+    await userService.delete(authorization);
     return response.status(204).end();
   },
 };
