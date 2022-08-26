@@ -7,6 +7,13 @@ const blogPostController = {
     return response.status(200).json(allPosts);
   },
 
+  getById: async (request, response, _next) => {
+    const { id } = request.params;
+    const chosenPost = await blogPostService.getByid(id);
+
+    return response.status(200).json(chosenPost);
+  },
+
   create: async (request, response, _next) => {
     const token = request.headers.authorization;
     const createdPost = await blogPostService.create(request.body, token);
