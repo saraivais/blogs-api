@@ -35,6 +35,16 @@ const blogPostController = {
 
     return response.status(200).json(updatedPost);
   },
+
+  delete: async (request, response, _next) => {
+    const token = request.headers.authorization;
+    const { id } = request.params;
+
+    await blogPostService.delete(token, id);
+
+    return response.status(204).end();
+  },
+
 };
 
 module.exports = blogPostController;
