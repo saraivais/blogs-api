@@ -17,6 +17,7 @@ const blogPostService = {
   validateBlogPostFields: runSchema(Joi.object({
     title: Joi.string().required().messages({
       'string.required': '400|Some required fields are missing',
+      'string.empty': '400|Some required fields are missing',
     }),
     content: Joi.string().required().messages({
       'string.required': '400|Some required fields are missing',
