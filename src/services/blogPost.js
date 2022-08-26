@@ -14,6 +14,11 @@ const blogPostService = {
     return createdPost.dataValues;
   },
 
+  getUserId: (token) => {
+    const payload = userService.getPayload(token);
+    return payload.id;
+  },
+
   validateBlogPostFields: runSchema(Joi.object({
     title: Joi.string().required().messages({
       'string.required': '400|Some required fields are missing',
