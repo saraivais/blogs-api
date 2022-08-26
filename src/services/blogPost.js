@@ -10,9 +10,11 @@ const blogPostService = {
     const allPosts = await BlogPost.findAll({
       include: [{
         model: User,
+        as: 'user',
         through: { attributes: [] },
        }, {
         model: Category,
+        as: 'categories',
         through: { attributes: [] },
        }] });
     return allPosts;
