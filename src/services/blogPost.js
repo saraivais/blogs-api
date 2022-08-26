@@ -95,6 +95,17 @@ const blogPostService = {
     return updatedPost;
   },
 
+  delete: async (token, postId) => {
+    const postToDelete = await blogPostService.getById(postId);
+    userService.verifyUserLoggedIn(token, postToDelete.userId);
+
+    await BlogPost.destroy({
+      where: {
+        id: postId,
+      },
+    });
+  },
+
   getUserId: (token) => {
     const payload = userService.getPayload(token);
     return payload.id;
