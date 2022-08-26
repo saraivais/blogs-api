@@ -4,6 +4,15 @@ const { BlogPost } = require('../database/models');
 const categoryService = require('./category');
 
 const blogPostService = {
+  create: async (newPost) => {
+    const verifiedPostData = await blogPostService.validateBlogPostFields(newPost);
+    await blogPostService.verifyAllCategories(verifiedPostData.categoryIds);
+
+    const createdPost = await BlogPost.create(verifiedPostData);
+    console.log('createdPost', createdPost);
+    console.log('dataValues', createdPost.dataValues);
+    return createdPost.dataValues;
+  },
 
   validateBlogPostFields: runSchema(Joi.object({
     title: Joi.string().required().messages({
@@ -26,7 +35,6 @@ const blogPostService = {
       throw new Error('400|"categoryIds" not found');
     }
   },
-
 };
 
 module.exports = blogPostService;
