@@ -2,14 +2,13 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const jwtValidation = (request, _response, next) => {
-  const { authorization } = request.headers;
-  if (!authorization) throw new Error('Token not found');
+  const token = request.headers.authorization;
+  if (!token) throw new Error('401|Token not found');
   try {
-    jwt.verify(authorization, process.env.JWT_SECRET);
+    jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch (error) {
-    console.log(error);
-    throw new Error('Expired or invalid token');
+    throw new Error('401|Expired or invalid token');
   }
 };
 
