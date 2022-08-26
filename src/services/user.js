@@ -73,7 +73,7 @@ const userService = {
       algorithm: 'HS256',
     };
 
-    const token = jwt.sign({ data: { email, id }}, process.env.JWT_SECRET, jwtConfig);
+    const token = jwt.sign({ data: { email, id } }, process.env.JWT_SECRET, jwtConfig);
     return token;
   },
 };
