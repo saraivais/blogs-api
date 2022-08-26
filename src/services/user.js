@@ -34,6 +34,22 @@ const userService = {
     return chosenUser;
   },
 
+  validatePostFields: runSchema(Joi.object({
+    displayName: Joi.string().required().min(8).messages({
+      'any.required': '400|"displayName" length must be at least 8 characters long',
+      'string.min': '400|"displayName" length must be at least 8 characters long',
+    }),
+    email: Joi.string().required().email().messages({
+      'any.required': '400|"email" must be a valid email',
+      'string.email': '400|"email" must be a valid email',
+    }),
+    password: Joi.string().required().min(6).messages({
+      'any.required': '400|"password" length must be at least 6 characters',
+      'string.min': '400|"password" length must be at least 6 characters',
+    }),
+    image: Joi.string(),
+  })),
+
 };
 
 module.exports = userService;
