@@ -2,15 +2,26 @@ const Joi = require('joi');
 const runSchema = require('./joiValidator');
 const { BlogPost } = require('../database/models');
 const categoryService = require('./category');
+const userService = require('./user');
+const postCategoryService = require('./postCategory');
 
 const blogPostService = {
-  create: async (newPost) => {
+  create: async (newPost, token) => {
     const verifiedPostData = await blogPostService.validateBlogPostFields(newPost);
     await blogPostService.verifyAllCategories(verifiedPostData.categoryIds);
+    const userId = blogPostService.getUserId(token);
 
-    const createdPost = await BlogPost.create(verifiedPostData);
-    console.log('createdPost', createdPost);
-    console.log('dataValues', createdPost.dataValues);
+    const createdPost = await BlogPost.create({
+      title: verifiedPostData.title,
+      content: verifiedPostData.content,
+      userId,
+    });
+
+    await postCategoryService.createPostsRelations(
+      createdPost.dataValues.id,
+      verifiedPostData.categoryIds,
+    );
+
     return createdPost.dataValues;
   },
 
