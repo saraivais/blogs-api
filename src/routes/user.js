@@ -5,6 +5,7 @@ const jwtValidation = require('../middlewares/auth');
 
 const userRoute = express.Router();
 
+userRoute.delete('/me', jwtValidation, rescue(userController.delete));
 userRoute.get('/:id', jwtValidation, rescue(userController.getById));
 userRoute.get('/', jwtValidation, rescue(userController.getAll));
 userRoute.post('/', rescue(userController.create));
