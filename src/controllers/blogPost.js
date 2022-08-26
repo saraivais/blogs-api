@@ -27,6 +27,14 @@ const blogPostController = {
 
     return response.status(201).json(createdPost);
   },
+
+  update: async (request, response, _next) => {
+    const token = request.headers.authorization;
+    const { id } = request.params;
+    const updatedPost = await blogPostService.update(token, id, request.body);
+
+    return response.status(200).json(updatedPost);
+  },
 };
 
 module.exports = blogPostController;
