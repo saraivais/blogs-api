@@ -16,10 +16,15 @@ const userService = {
   },
 
   verifyUserLoggedIn: async (token, userId) => {
-    const decodedPayload = jwt.decode(token);
-    if (decodedPayload.id !== userId) {
+    const userFromToken = userService.getPayload(token);
+    if (userFromToken.id !== userId) {
       throw new Error('401|Unauthorized user');
     }
+  },
+
+  getPayload: (token) => {
+    const decodedPayload = jwt.decode(token);
+    return decodedPayload.data;
   },
 
   getAll: async () => {
