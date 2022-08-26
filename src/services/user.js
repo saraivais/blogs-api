@@ -18,6 +18,17 @@ const userService = {
     const allUsers = await User.findAll({ attributes: { exclude: ['password'] } });
     return allUsers;
   },
+
+  getById: async (id) => {
+    const userExists = await userService.exists(id);
+    if (!userExists) {
+      // console.log('user não existe, linha 33 userservice');
+      throw new Error('404|User does not exist');
+    }
+    const chosenUser = await User.findByPk(id);
+    return chosenUser;
+  },
+
 };
 
 module.exports = userService;
