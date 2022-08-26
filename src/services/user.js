@@ -1,5 +1,8 @@
+const Joi = require('joi');
 const jwt = require('jsonwebtoken');
+const runSchema = require('./joiValidator');
 const { User } = require('../database/models');
+require('dotenv').config();
 
 const userService = {
   exists: async (id) => {
@@ -49,6 +52,21 @@ const userService = {
     }),
     image: Joi.string(),
   })),
+
+  create: async ({ displayName, email, password, image }) => {
+    const alreadyExists = await userService.emailRegistered(email);
+    if (alreadyExists) {
+      throw new Error('409|User already registered');
+    }
+    await userService.validatePostFields(
+      { displayName, email, password, image },
+    );
+
+    const createdUser = await User.create({ displayName, email, password, image });
+    const token = userService.generateNewUserToken(email, createdUser.id);
+
+    return token;
+  },
 
   generateNewUserToken: (email, id) => {
     const jwtConfig = {
