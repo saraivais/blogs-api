@@ -6,6 +6,11 @@ const userController = {
     return response.status(200).json(allUsers);
   },
 
+  getById: async (request, response, _next) => {
+    const { id } = request.params;
+    const chosenUser = await userService.getById(id);
+    return response.status(200).json(chosenUser);
+  },
 };
 
 module.exports = userController;
