@@ -97,6 +97,16 @@ const blogPostService = {
     }),
   })),
 
+  validateUpdateFields: runSchema(Joi.object({
+    title: Joi.string().required().messages({
+      'string.required': missingFieldsError,
+      'string.empty': missingFieldsError,
+    }),
+    content: Joi.string().required().messages({
+      'string.required': missingFieldsError,
+    }),
+  })),
+
   verifyAllCategories: async (categoryIds) => {
     const allCategoriesVerified = await Promise.all(categoryIds
       .map((categId) => categoryService.exists(categId)));
