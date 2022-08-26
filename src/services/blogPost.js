@@ -20,6 +20,26 @@ const blogPostService = {
     return allPosts;
   },
 
+  getByid: async (id) => {
+    const chosenPost = await BlogPost.findByPk(id, {
+      include: [{
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        }],
+    });
+    if (chosenPost === null) {
+      throw new Error('404|Post does not exist');
+    }
+    console.log(chosenPost.dataValues);
+    return chosenPost.dataValues;
+  },
+
   create: async (newPost, token) => {
     const verifiedPostData = await blogPostService.validateBlogPostFields(newPost);
     await blogPostService.verifyAllCategories(verifiedPostData.categoryIds);
