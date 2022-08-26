@@ -79,6 +79,22 @@ const blogPostService = {
     return createdPost.dataValues;
   },
 
+  update: async (token, postId, newPostData) => {
+    const postToEdit = await blogPostService.getById(postId);
+    userService.verifyUserLoggedIn(token, postToEdit.userId);
+    const validatedFields = await blogPostService.validateUpdateFields(newPostData);
+
+    await BlogPost.update(
+      { title: validatedFields.title, content: validatedFields.content },
+      { where: {
+      id: postId,
+      } },
+    );
+    
+    const updatedPost = await blogPostService.getById(postId);
+    return updatedPost;
+  },
+
   getUserId: (token) => {
     const payload = userService.getPayload(token);
     return payload.id;
