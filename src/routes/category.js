@@ -5,4 +5,6 @@ const jwtValidation = require('../middlewares/auth');
 
 const categoryRoute = express.Router();
 
+categoryRoute.get('/', jwtValidation, rescue(categoryController.getAll));
+
 module.exports = categoryRoute;
