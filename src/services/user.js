@@ -7,6 +7,11 @@ const userService = {
     return (chosenUser !== null);
   },
 
+  emailRegistered: async (userEmail) => {
+    const chosenUser = await User.findOne({ where: { email: userEmail } });
+    return (chosenUser !== null);
+  },
+
   verifyUserLoggedIn: async (token, userId) => {
     const decodedPayload = jwt.decode(token);
     if (decodedPayload.id !== userId) {
