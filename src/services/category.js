@@ -9,6 +9,11 @@ const categoryService = {
       'any.empty': '400|"name" is required',
     }),
   })),
+
+  getAll: async () => {
+    const allCategories = await Category.findAll();
+    return allCategories;
+  },
 };
 
 module.exports = categoryService;
