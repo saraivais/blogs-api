@@ -1,6 +1,13 @@
 const blogPostService = require('../services/blogPost');
 
 const blogPostController = {
+  getAllThroughSearch: async (request, response, _next) => {
+    const { q } = request.query;
+    const searchResult = await blogPostService.getAllThroughSearch(q);
+
+    return response.status(200).json(searchResult);
+  },
+
   getAll: async (_request, response, _next) => {
     const allPosts = await blogPostService.getAll();
 
