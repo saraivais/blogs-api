@@ -47,8 +47,8 @@ const userService = {
       'string.email': '400|"email" must be a valid email',
     }),
     password: Joi.string().required().min(6).messages({
-      'any.required': '400|"password" length must be at least 6 characters',
-      'string.min': '400|"password" length must be at least 6 characters',
+      'any.required': '400|"password" length must be at least 6 characters long',
+      'string.min': '400|"password" length must be at least 6 characters long',
     }),
     image: Joi.string(),
   })),
