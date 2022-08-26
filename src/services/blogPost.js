@@ -71,9 +71,8 @@ const blogPostService = {
       userId,
     });
 
-    await postCategoryService.createPostsRelations(
-      createdPost.dataValues.id,
-      verifiedPostData.categoryIds,
+    await postCategoryService.createRelationsInBulk(
+      createdPost.dataValues.id, verifiedPostData.categoryIds,
     );
 
     return createdPost.dataValues;
