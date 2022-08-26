@@ -86,11 +86,11 @@ const blogPostService = {
 
   validateBlogPostFields: runSchema(Joi.object({
     title: Joi.string().required().messages({
-      'string.required': '400|Some required fields are missing',
-      'string.empty': '400|Some required fields are missing',
+      'string.required': missingFieldsError,
+      'string.empty': missingFieldsError,
     }),
     content: Joi.string().required().messages({
-      'string.required': '400|Some required fields are missing',
+      'string.required': missingFieldsError,
     }),
     categoryIds: Joi.array().required().messages({
       'array.required': '400|"categoryIds" not found',
