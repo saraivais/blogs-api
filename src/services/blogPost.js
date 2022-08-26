@@ -87,7 +87,7 @@ const blogPostService = {
     await BlogPost.update(
       { title: validatedFields.title, content: validatedFields.content },
       { where: {
-      id: postId,
+        id: postId,
       } },
     );
     
