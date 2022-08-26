@@ -81,6 +81,13 @@ const userService = {
     const token = jwt.sign({ data: { email, id } }, process.env.JWT_SECRET, jwtConfig);
     return token;
   },
+
+  delete: async (token) => {
+    const userToDelete = userService.getPayload(token);
+    const deletedUser = await User.destroy({
+      where: { id: userToDelete.id, email: userToDelete.email } });
+    return deletedUser;
+  },
 };
 
 module.exports = userService;
