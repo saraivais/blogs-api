@@ -1,11 +1,23 @@
 const Joi = require('joi');
 const runSchema = require('./joiValidator');
-const { BlogPost } = require('../database/models');
+const { BlogPost, User, Category } = require('../database/models');
 const categoryService = require('./category');
 const userService = require('./user');
 const postCategoryService = require('./postCategory');
 
 const blogPostService = {
+  getAll: async () => {
+    const allPosts = await BlogPost.findAll({
+      include: [{
+        model: User,
+        through: { attributes: [] },
+       }, {
+        model: Category,
+        through: { attributes: [] },
+       }] });
+    return allPosts;
+  },
+
   create: async (newPost, token) => {
     const verifiedPostData = await blogPostService.validateBlogPostFields(newPost);
     await blogPostService.verifyAllCategories(verifiedPostData.categoryIds);
