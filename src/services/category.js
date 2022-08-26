@@ -14,6 +14,15 @@ const categoryService = {
     const allCategories = await Category.findAll();
     return allCategories;
   },
+
+  create: async (newCategory) => {
+    const validatedName = await categoryService.validateCategoryName(newCategory);
+
+    const createdCategory = await Category.create(validatedName);
+    console.log('created category', createdCategory);
+    return createdCategory;
+  },
+
 };
 
 module.exports = categoryService;
