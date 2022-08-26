@@ -17,6 +17,14 @@ const userController = {
     return response.status(201).json({ token });
   },
 
+  delete: async (request, response, _next) => {
+    console.log('ENTREI NO DELETE CONTROLLER');
+    const { authorization } = request.headers;
+    console.log('authorization', authorization);
+    const deletedUser = await userService.delete(authorization);
+    console.log('deletedUser', deletedUser);
+    return response.status(204).end();
+  },
 };
 
 module.exports = userController;
