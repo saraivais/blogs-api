@@ -1,0 +1,964 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Blog's API",
+    "description": "Simulates the database system of a blog. Manages login, users, blog posts, categories through CRUD endpoints.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/login/": {
+      "post": {
+        "summary": "Login",
+        "description": "Signs the user in and generates authentication for further operations",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "lewishamilton@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Unable to login due to missing or invalid fields"
+          },
+          "200": {
+            "description": "Successfully logged in and authentication token generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/me": {
+      "delete": {
+        "summary": "Delete user",
+        "description": "Deletes the logged in user and all related posts from database.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully deleted"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "User by ID",
+        "description": "Returns specific user information based on ID, sending on Response body an object containing id, displayName, email and image (URL), all strings.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "5"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "User does not exist"
+          },
+          "200": {
+            "description": "Selected user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 5
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "example": "Max Verstappen"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "supermax@gmail.com"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://classic.exame.com/wp-content/uploads/2021/06/2021-06-21T152407Z_1_LYNXNPEH5K0W0_RTROPTP_4_FRANCA-F1-RED-BULL-1.jpg?quality=70&strip=info&w=1024"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/": {
+      "get": {
+        "summary": "All users",
+        "description": "Lists all registered users in the blog's database.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All registered users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "displayName": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": 1,
+                      "displayName": "Lewis Hamilton",
+                      "email": "lewishamilton@gmail.com",
+                      "image": "https://www.theplayoffs.com.br/wp-content/uploads/2022/08/Twitter-Lewis-Hamilton-scaled.jpg"
+                    },
+                    {
+                      "id": 2,
+                      "displayName": "Michael Schumacher",
+                      "email": "michaelschumacher@gmail.com",
+                      "image": "https://uploads.metropoles.com/wp-content/uploads/2021/08/25151628/Schumacher-1-600x400.jpg"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates one user",
+        "description": "Creates a new user, authomatically logs in and generates authentication for futher operations. Receives in request body an object containing displayName, email, password and image (URL), all required strings.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": {
+                    "type": "string",
+                    "minLength": 8,
+                    "example": "Niki Lauda"
+                  },
+                  "email": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9+_.-]+@(.+)$",
+                    "example": "nikilauda12@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6,
+                    "example": "laudaair"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIvVr4-7Wj-6TY-EFMLw8gkPEZXMBRVik2nA&usqp=CAU"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Unable to create user for invalid or missing fields"
+          },
+          "409": {
+            "description": "User already registered"
+          },
+          "200": {
+            "description": "User Successfully created, logged in and authentication token generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/": {
+      "get": {
+        "summary": "All categories",
+        "description": "Returns all registered categories",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All categories and IDs",
+            "content": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "name": "Formula 1" 
+                },
+                {
+                  "id": 2,
+                  "name": "Curling"
+                },
+                {
+                  "id": 3,
+                  "name": "Volleyball"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates category",
+        "description": "Creates a new category from name property received on Request body",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Tennis"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid field"
+          },
+          "201": {
+            "description": "Category created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Tennis"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/search": {
+      "get": {
+        "summary": "Search posts",
+        "description": "Returns posts which title or content match the query string passed in the URL. Returns posts in an array, or an empty array if no posts match the search",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "String to search for in post title or content",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Silverstone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All posts matching the search query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "integer"
+                      },
+                      "published": {
+                        "type": "string"
+                      },
+                      "updated": {
+                        "type": "string"
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": 1,
+                      "title": "8th Title at Silverstone",
+                      "content": "Hamilton has been on pole seven times at Silverstone and has a record 103 wins from 297 races in total.",
+                      "userId": 1,
+                      "published": "2011-08-01T19:58:00.000Z",
+                      "updated": "2011-08-01T19:58:51.000Z",
+                      "user": {
+                        "id": 1,
+                        "displayName": "Lewis Hamilton",
+                        "email": "lewishamilton@gmail.com",
+                        "image": "https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg"
+                      },
+                      "categories": [
+                        {
+                          "id": 1,
+                          "name": "Formula 1"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "Crash at Silverstone",
+                      "content": "Verstappen and Hamilton tangled on lap one of the 2021 British Grand Prix at Copse.",
+                      "userId": 5,
+                      "published": "2011-08-01T19:58:00.000Z",
+                      "updated": "2011-08-01T19:58:51.000Z",
+                      "user": {
+                        "id": 1,
+                        "displayName": "Will Buxton",
+                        "email": "buxtonwill@gmail.com",
+                        "image": "https://image-cdn.essentiallysports.com/wp-content/uploads/FNox9SqXwAMkFzG.jpg"
+                      },
+                      "categories": [
+                        {
+                          "id": 1,
+                          "name": "Formula 1"
+                        },
+                        {
+                          "id": 7,
+                          "name": "Sky Sports"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/{id}": {
+      "delete": {
+        "summary": "Delete post",
+        "description": "Deletes specific post by ID, only if logged in user is its owner.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "404": {
+            "description": "Post does not exist"
+          },
+          "204": {
+            "description": "Post successfully deleted"
+          }
+        }
+      },
+      "put": {
+        "summary": "Edits a post",
+        "description": "Allows update only on title and content properties of a specified post by ID. Receives an object containing new title and content through Request body",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "title": "Three more years",
+                  "content": "Alonso wants to race for three more years. Where? We don't know yet..."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Missing fields"
+          },
+          "200": {
+            "description": "Post successfully edited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "integer"
+                    },
+                    "published": {
+                      "type": "string"
+                    },
+                    "updated": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "displayName": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "image": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": 3,
+                    "title": "Three more years",
+                    "content": "Alonso wants to race for three more years. Where? We don't know yet...",
+                    "userId": 1,
+                    "published": "2022-05-18T18:00:01.000Z",
+                    "updated": "2022-05-18T18:07:32.000Z",
+                    "user": {
+                      "id": 1,
+                      "displayName": "Lewis Hamilton",
+                      "email": "lewishamilton@gmail.com",
+                      "image": "https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg"
+                    },
+                    "categories": [
+                      {
+                        "id": 1,
+                        "name": "Formula 1"
+                      },
+                      {
+                        "id": 9,
+                        "name": "Hopes and Dreams"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Post by ID",
+        "description": "Recovers post information through relations with user and category tables based on ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Post does not exist"
+          },
+          "200": {
+            "description": "Post information with relations with user and category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "integer"
+                      },
+                      "published": {
+                        "type": "string"
+                      },
+                      "updated": {
+                        "type": "string"
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                  },
+                  "example": {
+                    "id": 10,
+                    "title": "Win in Abu Dabhi",
+                    "content": "After winning the 2021 Abu Dhabi Grand Prix, Verstappen became the first Dutch driver to win the Formula One World Championship, and the 34th Formula One World Drivers' Champion.",
+                    "userId": 11,
+                    "published": "2011-08-01T19:58:00.000Z",
+                    "updated": "2011-08-01T19:58:51.000Z",
+                    "user": {
+                      "id": 1,
+                      "displayName": "Natalie Pinkham",
+                      "email": "pinkhamf1@gmail.com",
+                      "image": "https://media.gettyimages.com/photos/natalie-pinkham-of-sky-f1-is-seen-during-the-italian-formula-one-at-picture-id151759926?s=2048x2048"
+                    },
+                    "categories": [
+                      {
+                        "id": 1,
+                        "name": "Formula 1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/": {
+      "get": {
+        "summary": "All posts",
+        "description": "Lists all posts registered in the blog's database",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All registered posts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "integer"
+                      },
+                      "published": {
+                        "type": "string"
+                      },
+                      "updated": {
+                        "type": "string"
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": 1,
+                      "title": "8th Title at Silverstone",
+                      "content": "Hamilton has been on pole seven times at Silverstone and has a record 103 wins from 297 races in total.",
+                      "userId": 1,
+                      "published": "2011-08-01T19:58:00.000Z",
+                      "updated": "2011-08-01T19:58:51.000Z",
+                      "user": {
+                        "id": 1,
+                        "displayName": "Lewis Hamilton",
+                        "email": "lewishamilton@gmail.com",
+                        "image": "https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg"
+                      },
+                      "categories": [
+                        {
+                          "id": 1,
+                          "name": "Formula 1"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "Crash at Silverstone",
+                      "content": "Verstappen and Hamilton tangled on lap one of the 2021 British Grand Prix at Copse.",
+                      "userId": 5,
+                      "published": "2011-08-01T19:58:00.000Z",
+                      "updated": "2011-08-01T19:58:51.000Z",
+                      "user": {
+                        "id": 1,
+                        "displayName": "Will Buxton",
+                        "email": "buxtonwill@gmail.com",
+                        "image": "https://image-cdn.essentiallysports.com/wp-content/uploads/FNox9SqXwAMkFzG.jpg"
+                      },
+                      "categories": [
+                        {
+                          "id": 1,
+                          "name": "Formula 1"
+                        },
+                        {
+                          "id": 7,
+                          "name": "Sky Sports"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates one post",
+        "description": "Creates a new post. Receives title, content and category IDs through Request body. Category IDs need to exist to be added.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "example": {
+            "title": "Ferrari: Another let down",
+            "content": "Ferrari keeps on disapponting drivers, tifosi, themselves and everyone through bad management and questionable choices",
+            "categoryIds": [1, 2]
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid or missing fields"
+          },
+          "201": {
+            "description": "Post successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "integer"
+                    },
+                    "updated": {
+                      "type": "string"
+                    },
+                    "published": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": 3,
+                    "title": "Ferrari: Another let down",
+                    "content": "Ferrari keeps on disapponting drivers, tifosi, themselves and everyone through bad management and questionable choices",
+                    "userId": 1,
+                    "updated": "2022-05-18T18:00:01.196Z",
+                    "published": "2022-05-18T18:00:01.196Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
