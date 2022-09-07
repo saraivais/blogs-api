@@ -7,7 +7,7 @@
   <summary>Click to expand!</summary>
   
 ### Description 📝
-Blog's API is a RESTful API Developed with the MSC (Model-Service-Controller) layered software architecture, using the Sequelize ORM to manage database queries and manipulation. This project was developed during the Back-end module at [Trybe](https://www.betrybe.com/), in August, 2022. The objective of Blog's API was to simulate the system of a blog, managing login, users, post categories and posts.
+Blog's API is a RESTful API Developed with the MSC (Model-Service-Controller) layered software architecture, using the Sequelize ORM to manage database queries and manipulation. This project was developed during the Back-end module at [Trybe](https://www.betrybe.com/), in August, 2022. The objective of Blog's API was to simulate the system of a blog, managing login, users, post categories and posts.   
 The following ERD (Entity-Relationship Diagram) was provided for database construction.
 ![image](https://user-images.githubusercontent.com/96205316/188949372-e171e27d-adfe-47fb-a28c-45ed4a5f8d0f.png)
 
@@ -59,7 +59,7 @@ The **Express.js** framework was used to design and structure this API's endpoin
   <summary>Clique para expandir!</summary>
   
 ### Descrição 📝
-Blog's API é uma API RESTful desenvolvida com a arquitetura de software em camadas MSC (Model-Service-Controller), utilizando o Sequelize ORM para gerenciar consultas e manipulação de banco de dados. Este projeto foi desenvolvido durante o módulo Back-end em [Trybe](https://www.betrybe.com/), em Agosto de 2022. O objetivo do Blog's API foi simular o sistema de um blog, gerenciando login, usuários , categorias de postagem e postagens.
+Blog's API é uma API RESTful desenvolvida com a arquitetura de software em camadas MSC (Model-Service-Controller), utilizando o Sequelize ORM para gerenciar consultas e manipulação de banco de dados. Este projeto foi desenvolvido durante o módulo Back-end em [Trybe](https://www.betrybe.com/), em Agosto de 2022. O objetivo do Blog's API foi simular o sistema de um blog, gerenciando login, usuários , categorias de postagem e postagens.   
 O seguinte ERD (Diagrama Entidade-Relacionamento) foi fornecido para construção do banco de dados.
 ![image](https://user-images.githubusercontent.com/96205316/188949391-495c5e8d-4f6b-40b0-ab36-45d74228392d.png)
 
