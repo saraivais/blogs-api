@@ -49,7 +49,7 @@ The **Express.js** framework was used to design and structure this API's endpoin
   http://localhost:3000
 ```
   
-### If you'd like more information, this API is also available on Postman!
+### 🎯 This API's documentation is available [here](https://documenter.getpostman.com/view/22527487/VVBUx6Ns)!
 
 
 </details>
@@ -101,7 +101,7 @@ O framework **Express.js** foi usado para projetar e estruturar os endpoints des
   http://localhost:3000
 ```
   
-### Se você quiser mais informações, essa API também está disponível no Postman!
+### 🎯 A documentação desta API está disponível [aqui](https://documenter.getpostman.com/view/22527487/VVBUx6Ns)!
 
   
 </details>
