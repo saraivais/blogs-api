@@ -1,5 +1,7 @@
 <h1 align="center">BLOG'S API 💻</h1>
 
+![image](https://user-images.githubusercontent.com/96205316/188949516-601b96c9-4ceb-4036-bf19-a5ff73270201.png)
+
 ## English 🇬🇧
 <details>
   <summary>Click to expand!</summary>
@@ -7,6 +9,7 @@
 ### Description 📝
 Blog's API is a RESTful API Developed with the MSC (Model-Service-Controller) layered software architecture, using the Sequelize ORM to manage database queries and manipulation. This project was developed during the Back-end module at [Trybe](https://www.betrybe.com/), in August, 2022. The objective of Blog's API was to simulate the system of a blog, managing login, users, post categories and posts.
 The following ERD (Entity-Relationship Diagram) was provided for database construction.
+![image](https://user-images.githubusercontent.com/96205316/188949372-e171e27d-adfe-47fb-a28c-45ed4a5f8d0f.png)
 
 
 ### Technologies and Tools 🔧
@@ -58,6 +61,8 @@ The **Express.js** framework was used to design and structure this API's endpoin
 ### Descrição 📝
 Blog's API é uma API RESTful desenvolvida com a arquitetura de software em camadas MSC (Model-Service-Controller), utilizando o Sequelize ORM para gerenciar consultas e manipulação de banco de dados. Este projeto foi desenvolvido durante o módulo Back-end em [Trybe](https://www.betrybe.com/), em Agosto de 2022. O objetivo do Blog's API foi simular o sistema de um blog, gerenciando login, usuários , categorias de postagem e postagens.
 O seguinte ERD (Diagrama Entidade-Relacionamento) foi fornecido para construção do banco de dados.
+![image](https://user-images.githubusercontent.com/96205316/188949391-495c5e8d-4f6b-40b0-ab36-45d74228392d.png)
+
 
 ### Tecnologias e Ferramentas 🔧
 <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm-logo"/>
@@ -65,12 +70,12 @@ O seguinte ERD (Diagrama Entidade-Relacionamento) foi fornecido para construçã
 <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="mysql-logo">
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="nodejs-logo"/>
 <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="express-logo"/>
-<img src="https://img.shields.io/badge/Mocha-8D6748?style=for-the-badge&logo=Mocha&logoColor=white" alt="mocha-logo"/>
-<img src="https://img.shields.io/badge/chai-A30701?style=for-the-badge&logo=chai&logoColor=white" alt="chai-logo"/>
+<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white" alt="sequelize-logo" />
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" alt="jwt-logo" />
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" alt="postman-logo"/>
 <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="swagger-logo"/>
 
-Blog's API foi desenvolvido por meio do **Docker** para criar um ambiente de desenvolvimento isolado. Os pacotes **npm** **dotenv** e **express-rescue** foram usados ​​para gerenciar variáveis ​​de ambiente e lidar com erros assíncronos, respectivamente. Este projeto foi desenvolvido utilizando a arquitetura em camadas **MSC** (Model-Service-Controller), utilizando o ORM **Sequelize** para cuidar de toda a abstração de consultas e manipulação do banco de dados. Além disso, a biblioteca **jsonwebtoken** (JWT) foi utilizada para gerar e autenticar tokens, com o objetivo de adicionar uma camada de segurança a esta API utilizando middlewares de validação.
+Blog's API foi desenvolvido por meio do **Docker** para criar um ambiente de desenvolvimento isolado. Os pacotes **npm** **dotenv** e **express-rescue** foram usados para gerenciar variáveis de ambiente e lidar com erros assíncronos, respectivamente. Este projeto foi desenvolvido utilizando a arquitetura em camadas **MSC** (Model-Service-Controller), utilizando o ORM **Sequelize** para cuidar de toda a abstração de consultas e manipulação do banco de dados. Além disso, a biblioteca **jsonwebtoken** (JWT) foi utilizada para gerar e autenticar tokens, com o objetivo de adicionar uma camada de segurança a esta API utilizando middlewares de validação.   
 O framework **Express.js** foi usado para projetar e estruturar os endpoints dessa API seguindo os Princípios **REST**. O **Nodemon** e o **Postman** fora, usados para monitorar e testar scripts e solicitações durante o desenvolvimento. Posteriormente, **Swagger** foi utilizado para escrever a documentação desta API.
 
 ### Instalação 📋
